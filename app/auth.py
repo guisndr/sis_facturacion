@@ -11,8 +11,6 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     current_app.logger.debug("Ruta /login accedida")
     current_app.logger.debug(f"Método: {request.method}")
-
-    # Si ya inició sesión, redirigimos al inicio
     if current_user.is_authenticated:
         current_app.logger.debug("Usuario ya autenticado, redirigiendo a index")
         return redirect(url_for('main.index'))
@@ -22,8 +20,6 @@ def login():
     if form.validate_on_submit():
         current_app.logger.info("==== INTENTO DE INICIO DE SESIÓN ====")
         current_app.logger.debug(f"Email proporcionado: {form.email.data}")
-
-        # Buscamos por email en administradores y clientes
         user = Usuario.query.filter_by(email=form.email.data).first()
         if not user:
             user = Cliente.query.filter_by(email=form.email.data).first()
@@ -33,16 +29,12 @@ def login():
             current_app.logger.debug(f"ID del usuario: {getattr(user, 'id', 'N/A')}")
             current_app.logger.debug(f"Email del usuario: {getattr(user, 'email', 'N/A')}")
             current_app.logger.debug(f"Tipo de usuario: {'Administrador' if hasattr(user, 'password_hash') and hasattr(user, 'nombre') and hasattr(user, 'verify_password') and hasattr(user, 'id') else 'Cliente'}")
-
-            # Validamos la contraseña
             if user.verify_password(form.password.data):
                 current_app.logger.info("Contraseña válida - Iniciando sesión...")
-                # "Recordarme" (si el campo existe)
                 remember_field = getattr(form, 'remember', None)
                 remember_value = remember_field.data if remember_field is not None else False
                 login_user(user, remember=remember_value)
                 current_app.logger.info("Usuario autenticado con éxito")
-
                 next_page = request.args.get('next')
                 current_app.logger.debug(f"Redirigiendo a: {next_page if next_page else 'main.index'}")
                 return redirect(next_page or url_for('main.index'))
@@ -61,8 +53,6 @@ def register():
     if form.validate_on_submit():
         current_app.logger.info("==== REGISTRO DE NUEVO CLIENTE ====")
         current_app.logger.debug(f"Datos del formulario: {form.data}")
-
-        # Campos opcionales (si existen en el formulario)
         direccion_field = getattr(form, 'direccion', None)
         telefono_field = getattr(form, 'telefono', None)
         cliente = Cliente(
