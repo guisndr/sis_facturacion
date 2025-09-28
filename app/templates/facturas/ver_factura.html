@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Factura #{{ factura.id }}</h5>
+        <a href="{{ url_for('main.listar_facturas') }}" class="btn btn-secondary">Volver</a>
+    </div>
+    <div class="card-body">
+        <p><strong>Fecha y hora:</strong> {{ factura.fecha.strftime('%d/%m/%Y %H:%M') }}</p>
+        <p><strong>Cliente:</strong> {{ factura.cliente.nombre }}</p>
+        <p><strong>Total:</strong> ${{ "%.2f"|format(factura.total) }}</p>
+        <table class="table">
+            <thead>
+                <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th></tr>
+            </thead>
+            <tbody>
+                {% for detalle in factura.detalles %}
+                <tr>
+                    <td>{{ detalle.producto.descripcion }}</td>
+                    <td>{{ detalle.cantidad }}</td>
+                    <td>${{ "%.2f"|format(detalle.precio_unitario) }}</td>
+                    <td>${{ "%.2f"|format(detalle.subtotal) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

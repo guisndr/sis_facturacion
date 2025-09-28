@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Listado de Productos</h5>
+        <a href="{{ url_for('main.nuevo_producto') }}" class="btn btn-primary">Nuevo</a>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr><th>Descripción</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.descripcion }}</td>
+                    <td>${{ "%.2f"|format(producto.precio) }}</td>
+                    <td>{{ producto.stock }}</td>
+                    <td>
+                        <a href="{{ url_for('main.editar_producto', id=producto.id) }}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{{ url_for('main.confirmar_eliminar_producto', id=producto.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No hay productos</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

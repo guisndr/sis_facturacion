@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>{{ titulo }}</h5>
+        <a href="{{ url_for('main.listar_clientes') }}" class="btn btn-secondary">Volver</a>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ macros.render_field(form.nombre) }}
+            {{ macros.render_field(form.direccion) }}
+            {{ macros.render_field(form.telefono) }}
+            {{ macros.render_field(form.email) }}
+            {% if form.password is defined %}
+                {{ macros.render_field(form.password, type='password') }}
+                {{ macros.render_field(form.confirm_password, type='password') }}
+            {% endif %}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

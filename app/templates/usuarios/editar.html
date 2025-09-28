@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 720px;">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0">Editar Usuario</h1>
+    <a href="{{ url_for('main.listar_usuarios') }}" class="btn btn-secondary btn-sm">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          {{ form.nombre(class_='form-control') }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          {{ form.email(class_='form-control') }}
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Rol</label>
+            {{ form.rol(class_='form-select') }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Cliente asociado</label>
+            {{ form.cliente_id(class_='form-select') }}
+            <div class="form-text">Usar "— Sin cliente —" para usuarios admin o cuentas sin vínculo.</div>
+          </div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> {{ form.submit.label.text }}
+          </button>
+          <a href="{{ url_for('main.listar_usuarios') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>Eliminar Producto #{{ producto.id }}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        ¿Estás seguro de que deseas eliminar el producto
+                        <strong>{{ producto.descripcion }}</strong> con precio
+                        <strong>${{ "%.2f"|format(producto.precio) }}</strong>?
+                    </p>
+                    <p class="text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Esta acción no se puede deshacer y también eliminará todos los detalles de facturas asociados a este producto.
+                    </p>
+
+                    <form method="POST" action="{{ url_for('main.eliminar_producto', id=producto.id) }}" id="deleteForm" onsubmit="return confirmDelete(event)">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">
+                            <i class="fas fa-trash-alt"></i> Confirmar Eliminación
+                        </button>
+                        <a href="{{ url_for('main.listar_productos') }}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                    </form>
+
+                    <script>
+                    function confirmDelete(e) {
+                        const ok = confirm('¿Estás seguro de que deseas eliminar este producto?\n\nEsta acción:\n- Eliminará el producto\n- Eliminará todos los detalles de facturas asociados\n- No se puede deshacer');
+                        if (!ok) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        // Mostrar indicador de carga sin remover el CSRF ni el formulario
+                        const btn = document.getElementById('confirmDeleteBtn');
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Eliminando...';
+                        }
+                        return true;
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,401 @@
+/*
+ * Login page
+ */
+.login-page {
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #e9ecef;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.login-box {
+    margin: 0.5rem auto;
+    max-width: 400px;
+    width: 90%;
+}
+
+.login-logo {
+    font-size: 2.1rem;
+    font-weight: 300;
+    margin-bottom: 0.9rem;
+    text-align: center;
+}
+
+.login-logo a {
+    color: #495057;
+}
+
+.login-card-body {
+    background-color: #fff;
+    border-top: 0;
+    color: #666;
+    padding: 20px;
+}
+
+.login-box-msg {
+    margin: 0;
+    padding: 0 20px 20px;
+    text-align: center;
+}
+
+/* Efecto de carga */
+.login-box .overlay {
+    display: none;
+}
+
+/* Estilos para el checkbox "Recordarme" */
+.icheck-primary {
+    display: inline;
+}
+
+/* Ajustes responsivos */
+@media (min-width: 576px) {
+    .login-box {
+        width: 400px;
+    }
+}
+
+/* Efecto de hover en el botón de login */
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2e59d9;
+}
+
+/* Estilos para los íconos de los inputs */
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    color: #6c757d;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.375rem 0.75rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Ajustes para los mensajes de error */
+.alert {
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1.25rem;
+    position: relative;
+}
+
+.alert-dismissible {
+    padding-right: 4rem;
+}
+
+.alert-dismissible .close {
+    color: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.75rem 1.25rem;
+    color: inherit;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Botón de login */
+.btn-login {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* Estilos para los mensajes de error */
+.alert {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+}
+
+/* Estilos para el icono de mostrar/ocultar contraseña */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 5;
+}
+
+.password-toggle:hover {
+    color: #495057;
+}
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-control, .btn-login {
+        padding: 0.65rem 1rem;
+    }
+}
+
+.form-control:focus {
+    color: var(--text-color);
+    background-color: #fff;
+    border-color: #bac8f3;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+/* ===================== */
+/*  Dark Mode Overrides  */
+/* ===================== */
+.dark-mode.login-page {
+    background-color: #1f2d3d;
+}
+
+.dark-mode .login-logo a,
+.dark-mode .login-logo { color: #e9ecef; }
+
+.dark-mode .login-card-body {
+    background-color: #2c3034;
+    color: #e9ecef;
+}
+
+.dark-mode .input-group-text {
+    background-color: #343a40;
+    border-color: #495057;
+    color: #adb5bd;
+}
+
+.dark-mode .form-control {
+    background-color: #343a40;
+    border-color: #495057;
+    color: #e9ecef;
+}
+
+.dark-mode .form-control:focus {
+    background-color: #343a40;
+    color: #e9ecef;
+    border-color: #6c757d;
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+/* Botón de inicio de sesión */
+.btn-login {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0.15rem 0.15rem rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 0.15rem 0.15rem rgba(0, 0, 0, 0.1);
+}
+
+.btn-login i {
+    margin-right: 0.5rem;
+}
+
+/* Mensajes de error */
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--error-color);
+}
+
+/* Alertas */
+.alert {
+    position: relative;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.alert-dismissible {
+    padding-right: 3.5rem;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+}
+
+.alert-success {
+    color: #0f6848;
+    background-color: #d2f8e8;
+    border-color: #b8f0da;
+}
+
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+/* Versión móvil */
+@media (max-width: 576px) {
+    .login-page {
+        padding: 1rem;
+        background-color: white;
+    }
+    
+    .login-card {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+    
+    .login-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .login-body {
+        padding: 2rem 1.5rem;
+    }
+    
+    .login-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .login-header p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Efectos de hover en la tarjeta */
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para el botón de mostrar/ocultar contraseña */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Estilos para el enlace de olvidé mi contraseña */
+.forgot-password {
+    display: block;
+    margin-top: 0.5rem;
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

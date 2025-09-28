@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de usuarios</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Cliente asociado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for u in usuarios %}
+            <tr>
+              <td>{{ u.id }}</td>
+              <td>{{ u.nombre }}</td>
+              <td>{{ u.email }}</td>
+              <td>
+                {% if u.is_admin %}
+                  <span class="badge bg-dark">Admin</span>
+                {% else %}
+                  <span class="badge bg-secondary">Usuario</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if u.cliente %}
+                  {{ u.cliente.nombre }} (ID {{ u.cliente_id }})
+                {% elif u.cliente_id %}
+                  ID {{ u.cliente_id }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+              <td>
+                <a href="{{ url_for('main.editar_usuario', id=u.id) }}" class="btn btn-sm btn-primary">
+                  <i class="fas fa-edit"></i> Editar
+                </a>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="6" class="text-center">No hay usuarios</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

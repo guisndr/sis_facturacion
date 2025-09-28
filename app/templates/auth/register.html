@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro de Cliente - Sistema de Facturación{% endblock %}
+
+{% block login_content %}
+<div class="login-box">
+  <div class="login-logo">
+    <i class="fas fa-user-plus"></i>
+    <span>Registro de Cliente</span>
+  </div>
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Crea tu cuenta para comenzar</p>
+
+      
+
+      <form action="{{ url_for('auth.register') }}" method="post" novalidate id="registerForm">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          {{ form.nombre(class_="form-control" + (' is-invalid' if form.nombre.errors else ''), id='nombre', required=True) }}
+          {% if form.nombre.errors %}
+            <div class="invalid-feedback d-block">{{ form.nombre.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          {{ form.email(class_="form-control" + (' is-invalid' if form.email.errors else ''), id='email', required=True, maxlength='120') }}
+          {% if form.email.errors %}
+            <div class="invalid-feedback d-block">{{ form.email.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          {{ form.password(class_="form-control" + (' is-invalid' if form.password.errors else ''), id='password', required=True, minlength='6') }}
+          {% if form.password.errors %}
+            <div class="invalid-feedback d-block">{{ form.password.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          <label for="confirm_password" class="form-label">Confirmar contraseña</label>
+          {{ form.confirm_password(class_="form-control" + (' is-invalid' if form.confirm_password.errors else ''), id='confirm_password', required=True, minlength='6') }}
+          {% if form.confirm_password.errors %}
+            <div class="invalid-feedback d-block">{{ form.confirm_password.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="d-grid gap-2">
+          {{ form.submit(class_='btn btn-success') }}
+        </div>
+        <div class="mt-3 text-center">
+          <small>¿Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}">Inicia sesión</a></small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

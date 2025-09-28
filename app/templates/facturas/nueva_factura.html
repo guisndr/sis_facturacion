@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Nueva Factura</h5>
+        <a href="{{ url_for('main.listar_facturas') }}" class="btn btn-secondary">Volver</a>
+    </div>
+    <div class="card-body">
+        <form method="POST" id="facturaForm">
+            {{ form.hidden_tag() }}
+            {{ macros.render_field(form.cliente_id) }}
+            {{ macros.render_field(form.fecha) }}
+            <div id="items">
+                {% for item in form.items %}
+                <div class="item mb-3">
+                    <div class="form-group">
+                        <label for="{{ item.producto_id.id }}">{{ item.producto_id.label.text }}</label>
+                        <select class="form-control" id="{{ item.producto_id.id }}" name="{{ item.producto_id.name }}">
+                            <option value="">Seleccione un producto</option>
+                            {% for p in productos %}
+                            <option value="{{ p.id }}" data-precio="{{ '%.2f'|format(p.precio) }}" data-stock="{{ p.stock }}" {% if item.producto_id.data == p.id %}selected{% endif %}>
+                                {{ p.descripcion }} (${{ '%.2f'|format(p.precio) }}) - Stock: {{ p.stock }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted stock-display"></small>
+                        {% if item.producto_id.errors %}
+                        <div class="text-danger">
+                            {% for error in item.producto_id.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {{ macros.render_field(item.cantidad) }}
+                    {{ macros.render_field(item.precio_unitario) }}
+                    {{ macros.render_field(item.subtotal) }}
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-outline-primary add-after d-none">Agregar otro item</button>
+                        <button type="button" class="btn btn-outline-danger remove-item ms-2">Eliminar</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <p>Total: <span id="total">0.00</span></p>
+            {{ form.submit(class="btn btn-primary") }} <!-- Botón submit -->
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if precios_por_producto is defined %}
+<script type="application/json" id="precios-data">
+{{ precios_por_producto | tojson | safe }}
+</script>
+{% endif %}
+<script src="{{ url_for('static', filename='js/facturas.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% macro render_field(field, classes="", icon=None, type=None, placeholder=None) %}
+<div class="form-group mb-3">
+    {% if field.type != 'HiddenField' and field.type != 'CSRFTokenField' %}
+        {{ field.label(class="form-label") }}
+    {% endif %}
+    
+    <div class="input-group">
+        {% if icon %}
+        <span class="input-group-text">
+            <i class="fas fa-{{ icon }}"></i>
+        </span>
+        {% endif %}
+        
+        {% set field_class = 'form-control' + (' is-invalid' if field.errors else '') %}
+        {% if classes %}
+            {% set field_class = field_class ~ ' ' ~ classes %}
+        {% endif %}
+        
+        {% if type %}
+            {{ field(class=field_class, type=type, placeholder=placeholder or field.label.text) }}
+        {% else %}
+            {{ field(class=field_class, placeholder=placeholder or field.label.text) }}
+        {% endif %}
+    </div>
+    
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    {% if field.description %}
+        <small class="form-text text-muted">{{ field.description }}</small>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro render_checkbox(field) %}
+<div class="form-check mb-3">
+    {{ field(class="form-check-input") }}
+    {{ field.label(class="form-check-label") }}
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            {{ field.errors[0] }}
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro render_submit(field, class="btn-primary") %}
+<div class="form-group">
+    {{ field(class="btn " ~ class) }}
+</div>
+{% endmacro %}

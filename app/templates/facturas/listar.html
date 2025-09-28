@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block head %}
+{{ super() }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // No necesitamos JavaScript especial para la eliminación ahora
+    // Los formularios funcionan directamente con POST
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Listado de Facturas</h5>
+        {% if current_user.is_admin %}
+            <a href="{{ url_for('main.nueva_factura') }}" class="btn btn-primary">Nueva</a>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr><th>Fecha y hora</th><th>Cliente</th><th>Total</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+                {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>{{ factura.cliente.nombre }}</td>
+                    <td>${{ "%.2f"|format(factura.total) }}</td>
+                    <td>
+                        <a href="{{ url_for('main.ver_factura', id=factura.id) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> Ver
+                        </a>
+                        {% if current_user.is_admin %}
+                            <form action="{{ url_for('main.eliminar_factura', id=factura.id) }}" method="POST" class="d-inline delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta factura?')">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No hay facturas</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
