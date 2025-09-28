@@ -1,0 +1,24 @@
+# Editor and IDE settings
+.vscode/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment and secrets
+.env
+.env.*
+
+# Databases and instances
+instance/
+*.db
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
