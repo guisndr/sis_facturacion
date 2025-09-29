@@ -10,7 +10,6 @@ main_bp = Blueprint("main", __name__)
 
 
 def admin_required(f):
-    """Permite entrar solo a administradores."""
     @wraps(f)
     def wrapper(*args, **kwargs):
         if (not current_user.is_authenticated) or (not getattr(current_user, "is_admin", False)):

@@ -95,7 +95,7 @@ class Factura(db.Model):
         return self.total
 
     def actualizar_stock(self):
-        """Resta del stock las cantidades vendidas (sin commit)."""
+        """Resta del stock las cantidades vendidas."""
         for detalle in self.detalles:
             producto = detalle.producto
             if producto is None:

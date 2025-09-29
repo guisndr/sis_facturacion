@@ -18,7 +18,7 @@ def configure_logging(app):
     
     file_handler = RotatingFileHandler(
         'logs/sis_facturacion.log',
-        maxBytes=10*1024*1024,  # 10 MB reales
+        maxBytes=10*1024*1024,
         backupCount=10,
         encoding='utf-8'
     )
@@ -38,12 +38,7 @@ def configure_logging(app):
     app.logger.info('Iniciando Sistema de Facturación')
 
 def create_app(config_name=None):
-    """
-    Factory para crear la aplicación Flask.
-    
-    Args:
-        config_name (str): Nombre de la configuración a usar (development, testing, production)
-    """
+
     if config_name is None:
         config_name = os.environ.get('FLASK_ENV', 'development')
     
